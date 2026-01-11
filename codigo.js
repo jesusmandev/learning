@@ -41,7 +41,7 @@ function jugar(jugadaJugador) {
     ) {
         resultado = "GANASTE"
         triunfos++
-    } else {
+    } else if (jugador != pc) {
         resultado = "PERDISTE"
         perdidas++
     }
