@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>MOKEPON</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Arial', sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+
+            .container {
+                background: white;
+                border-radius: 20px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                padding: 40px;
+                max-width: 800px;
+                width: 100%;
+            }
+
+            h1 {
+                text-align: center;
+                color: #333;
+                margin-bottom: 40px;
+                font-size: 2.5em;
+                text-shadow: 2px 2px 4px rgba(102, 126, 234, 0.2);
+            }
+
+            section {
+                margin-bottom: 40px;
+                padding: 30px;
+                background: #f8f9fa;
+                border-radius: 15px;
+                border-left: 5px solid #667eea;
+            }
+
+            h2 {
+                color: #667eea;
+                margin-bottom: 20px;
+                font-size: 1.5em;
+            }
+
+            .mascota-options {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 20px;
+            }
+
+            .mascota-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+
+            input[type="radio"] {
+                cursor: pointer;
+                width: 20px;
+                height: 20px;
+                accent-color: #667eea;
+            }
+
+            label {
+                cursor: pointer;
+                color: #333;
+                font-size: 1.1em;
+                font-weight: 500;
+            }
+
+            .vidas-container {
+                display: flex;
+                justify-content: space-around;
+                margin-bottom: 25px;
+                padding: 15px 0;
+                border-bottom: 2px solid #e0e0e0;
+            }
+
+            .vidas-item {
+                text-align: center;
+            }
+
+            .vidas-item p {
+                color: #666;
+                font-size: 0.95em;
+                margin-bottom: 5px;
+            }
+
+            .vidas-item span {
+                font-size: 1.8em;
+                font-weight: bold;
+                color: #764ba2;
+            }
+
+            .botones-ataque {
+                display: flex;
+                gap: 15px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            button {
+                padding: 12px 24px;
+                font-size: 1em;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+                font-weight: bold;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            #boton-mascotas {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                width: 100%;
+                padding: 15px;
+                font-size: 1.1em;
+            }
+
+            #boton-mascotas:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            }
+
+            #boton-fuego {
+                background: linear-gradient(135deg, #FF6B6B 0%, #FF8E72 100%);
+                color: white;
+                flex: 1;
+                min-width: 100px;
+            }
+
+            #boton-agua {
+                background: linear-gradient(135deg, #4ECDC4 0%, #44A7C6 100%);
+                color: white;
+                flex: 1;
+                min-width: 100px;
+            }
+
+            #boton-tierra {
+                background: linear-gradient(135deg, #95E1D3 0%, #7DBE7F 100%);
+                color: white;
+                flex: 1;
+                min-width: 100px;
+            }
+
+            button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            button:active {
+                transform: translateY(-1px);
+            }
+
+            #mensajes {
+                background: linear-gradient(135deg, #fff5e6 0%, #ffe0b2 100%);
+                border-left: 5px solid #FFA500;
+                text-align: center;
+                padding: 30px;
+                font-size: 1.2em;
+                color: #333;
+                font-weight: bold;
+                min-height: 80px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #boton-reiniciar {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                width: 100%;
+                padding: 15px;
+                font-size: 1.1em;
+            }
+
+            #seleccionar-ataque, #reiniciar {
+                display: none;
+            }
+
+            #seleccionar-ataque.activo, 
+            #reiniciar.activo {
+                display: block;
+            }
+
+            @media (max-width: 600px) {
+                .container {
+                    padding: 20px;
+                }
+
+                h1 {
+                    font-size: 1.8em;
+                    margin-bottom: 30px;
+                }
+
+                button {
+                    padding: 10px 16px;
+                    font-size: 0.9em;
+                }
+            }
+        </style>
+        <script src="./js/mokepon.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>MOKEPON 🔥💧🌱</h1>
+
+            <section id="seleccionar-mascota">
+                <h2>ELIGE TU MASCOTA:</h2>
+
+                <div class="mascota-options">
+                    <div class="mascota-item">
+                        <input type="radio" name="mascota" id="hipoge"/>
+                        <label for="hipoge">🔥 Hipoge</label>
+                    </div>
+
+                    <div class="mascota-item">
+                        <input type="radio" name="mascota" id="Capipepo"/>
+                        <label for="Capipepo">💧 Capipepo</label>
+                    </div>
+
+                    <div class="mascota-item">
+                        <input type="radio" name="mascota" id="Ratigueya"/>
+                        <label for="Ratigueya">🌱 Ratigueya</label>
+                    </div>
+                </div>
+
+                <button id="boton-mascotas">Seleccionar Mascota</button>
+            </section>
+
+            <section id="seleccionar-ataque">
+                <h2>ELIGE TU ATAQUE:</h2>
+
+                <div class="vidas-container">
+                    <div class="vidas-item">
+                        <p>Tu Mascota</p>
+                        <p>❤️ <span>3</span> vidas</p>
+                    </div>
+                    <div class="vidas-item">
+                        <p>Mascota del Enemigo</p>
+                        <p>❤️ <span>3</span> vidas</p>
+                    </div>
+                </div>
+
+                <div class="botones-ataque">
+                    <button id="boton-fuego">FUEGO 🔥</button>
+                    <button id="boton-agua">AGUA 💧</button>
+                    <button id="boton-tierra">TIERRA 🌱</button>
+                </div>
+            </section>
+
+            <section id="mensajes">
+                <p>Tu mascota atacó con FUEGO, La mascota del enemigo con TIERRA - ¡GANASTE! 🎉</p>
+            </section>
+
+            <section id="reiniciar">
+                <button id="boton-reiniciar">REINICIAR JUEGO</button>
+            </section>
+        </div>
+    </body>
+</html>
